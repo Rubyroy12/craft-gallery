@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+
+{%block content %}
+<div class="container-fluid">
+
+
+
+    {%for image in meditation_images%}
+
+
+
+    <div class="card" style="width: 18rem;">
+        <div class="well well-lg p-3" style="text-align: center;border-bottom: 1px solid green;">
+            <img class="card-img-top" src="{{image.photo.url}}" alt="Card image cap" class="img-responsive"
+                height="200px" width="200px" data-toggle="modal">
+            <div class="card-body">
+                <h5 class="card-title">{{image.name}}</h5>
+                <p class="card-text">{{image.description}}</p>
+                <button class="btn btn-primary">View</button><br>
+                <p>Posted at <span
+                        style="font: size 10px; color:rgb(3, 3, 32);font-weight: bold;">{{image.posted | timesince}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="row">
+        <h2 class="text-center">There No items in the Gallery</h2>
+    </div>
+
+
+    {%endfor%}
+
+
+</div>
+
+{%endblock%}

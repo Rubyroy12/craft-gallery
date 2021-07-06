@@ -1,0 +1,89 @@
+{% extends 'base.html'%}
+
+{%block content %}
+<hr>
+
+{% include "category_navbar.html" %}
+
+
+
+<div class="container-fluid">
+
+
+
+    <div class="row justify-content-between">
+        {%for image_item in gallery%}
+
+
+
+        <div class="card" style="width: 18rem;">
+            <div class="well well-lg p-3" style="text-align: center;border-bottom: 1px solid green;">
+                <img class="card-img-top" src="{{image_item.photo.url}}" alt="Card image cap" class="img-responsive"
+                    height="200px" width="200px" data-toggle="modal" data-target="#myModal{{image_item.id}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{image_item.name}}</h5> 
+                    <p class="card-text"></p>
+                    <button class="btn btn-primary" data-toggle="modal"
+                        data-target="#myModal{{image_item.id}}">View</button><br>
+                    <p>Posted at <span
+                            style="font: size 10px; color:rgb(3, 3, 32);font-weight: bold;">{{image_item.posted | timesince}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal -->
+
+
+        <div class="modal fade" id="myModal{{image_item.id}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document" style="max-width: 800px!important; height: 500px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="#{{image_item.name}}">{{image_item.name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div>
+                        <img src="{{ image_item.photo.url }}" class="img-fluid" alt="{{image_item.name}}" height="600px"
+                            width="600px"
+                            style="margin: 50px;display:flex; justify-content:center; align-items:center" />
+                    </div>
+                    <div class="modal-body">{{image_item.description}}</div>
+                    <div class="modal-body">Category: {{image_item.category.name}}</div>
+                    <div class="modal-body">Location:{{image_item.location.name}}</div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-info"
+                            value="http://127.0.0.1:8000/gallery{{ image_item.photo.url }}"
+                            onclick="copyURL(this.value)">Copy URL</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function copyURL(value) {
+                function handler(event) {
+                    event.clipboardData.setData('text/plain', value);
+                    event.preventDefault();
+                    document.removeEventListener('copy', handler, true);
+                }
+                document.addEventListener('copy', handler, true);
+                document.execCommand('copy');
+            }
+        </script>
+        {% empty %}
+        <div class="row">
+            <h2 class="text-center">There No items in the Gallery</h2>
+        </div>
+
+        {%endfor%}
+
+
+
+    </div>
+
+</div>
+{%endblock%}
