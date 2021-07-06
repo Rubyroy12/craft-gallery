@@ -41,20 +41,17 @@ def meditation(request):
 
 def image_location(request):
     nairobi = Location.objects.get(pk=1)#NAIROBI
-    karatina  = Location.objects.get(pk=2)
+    kericho  = Location.objects.get(pk=2)
     nyeri = Location.objects.get(pk=3)
-    nakuru = Location.objects.get(pk=4)
-    mombasa = Location.objects.get(pk=5)
-    marsabit = Location.objects.get(pk=6)
-
+    mombasa = Location.objects.get(pk=4)
+   
     nairobi_images = Images.objects.filter(location=nairobi)
-    karatina_images = Images.objects.filter(location=karatina)
+    kericho_images = Images.objects.filter(location=kericho)
     nyeri_images = Images.objects.filter(location=nyeri)
-    nakuru_images = Images.objects.filter(location=nakuru)
     mombasa_images = Images.objects.filter(location=mombasa)
-    marsabit_images = Images.objects.filter(location=marsabit)
+   
 
-    return render(request, 'location.html', {"nairobi":nairobi_images, "marsabit":marsabit_images, "karatina": karatina_images,"nyeri":nyeri_images,"nakuru":nakuru_images,"mombasa":mombasa_images })
+    return render(request, 'location.html', {"nairobi":nairobi_images, "kericho": kericho_images,"nyeri":nyeri_images,"mombasa":mombasa_images })
 
 
 def search_results(request):
