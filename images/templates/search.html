@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{%block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+        {%if images %}
+        <h2>Found {{ images |length }} of searched term {{message}}</h2>
+
+        {%else %}
+        <div>
+            <h2 class="text-center"> Found 0 images for the search term {{message}}</h2>
+        </div>
+
+     
+        {% endif %}
+
+    </div>
+
+    <div class="container-fluid row">
+
+        {% if images %}
+        {% for image in images %}
+        <div class="col-md-7">
+            <h1 class="text-underline">{{image.name}}</h1>
+            
+            <img src="{{image.photo.url}}" alt="" height="300px" width="300px">
+            <p class="text-justify">{{image.description}}</p>
+
+
+        </div>
+        {% endfor %}
+
+    </div>
+    {% endif %}
+
+
+</div>
+
+{%endblock%}
+
